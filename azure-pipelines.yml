@@ -3,22 +3,22 @@ pool:
 trigger:
   - master
 steps:
-  - task: CopyFiles@2
-    displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Templates'
-    inputs:
-      SourceFolder: deployment
-      Contents: '*.json'
-      TargetFolder: '$(build.artifactstagingdirectory)/Templates'
-  - task: Npm@1
-    displayName: 'npm custom'
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: 'install --production'
-  - task: ArchiveFiles@2
-    displayName: 'Archive $(Build.SourcesDirectory)'
-    inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)'
-      includeRootFolder: false
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
+      - task: AzureCLI@2
+        displayName: "Terraform"
+        inputs:
+          azureSubscription: very_interesting_not_suspicious_connection
+          scriptType: bash
+          addSpnToEnvironment: true
+          scriptLocation: inlineScript
+          inlineScript: |
+            export ARM_SUBSCRIPTION_ID=$(az keyvault secret show --name ARM-SUBSCRIPTION-ID --vault-name test1-res-key-vault --query value -o tsv)
+            export ARM_CLIENT_ID=$(az keyvault secret show --name ARM-CLIENT-ID --vault-name test1-res-key-vault --query value -o tsv)
+            export ARM_CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
+            export ARM_TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)
+            export AZURE_CLIENT_ID=$(az keyvault secret show --name ARM-CLIENT-ID --vault-name test1-res-key-vault --query value -o tsv)
+            export AZURE_CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
+            export AZURE_TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)
+            export TF_VAR_VAULT_URI=$(az keyvault secret show --name TF-VAR-VAULT-URI --vault-name test1-res-key-vault --query value -o tsv)
+
+            terraform init
+            terraform plan
