@@ -4,7 +4,7 @@ trigger:
   - master
 steps:
       - task: AzureCLI@2
-        displayName: "Terraform"
+        displayName: "Get Creds"
         inputs:
           azureSubscription: very_interesting_not_suspicious_connection
           scriptType: bash
@@ -16,13 +16,15 @@ steps:
             export ARM_CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
             export ARM_TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)
             export TF_VAR_VAULT_URI=$(az keyvault secret show --name TF-VAR-VAULT-URI --vault-name test1-res-key-vault --query value -o tsv)
+        name: "Uno"
+            
       - task: AzureCLI@2
-        displayName: "Terraform"
+        displayName: "Right Principal"
         env:
-            SUBSCRIPTION_ID: ARM_SUBSCRIPTION_ID
-            CLIENT_ID: ARM_CLIENT_ID
-            CLIENT_SECRET: ARM_CLIENT_SECRET
-            TENANT_ID: ARM_TENANT_ID
+            SUBSCRIPTION_ID: $(Uno.ARM_SUBSCRIPTION_ID)
+            CLIENT_ID: $(Uno.ARM_CLIENT_ID)
+            CLIENT_SECRET: $(Uno.ARM_CLIENT_SECRET)
+            TENANT_ID: $(Uno.ARM_TENANT_ID)
         inputs:
           azureSubscription: very_interesting_not_suspicious_connection
           scriptType: bash
