@@ -16,6 +16,12 @@ steps:
             export ARM_CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
             export ARM_TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)
             export TF_VAR_VAULT_URI=$(az keyvault secret show --name TF-VAR-VAULT-URI --vault-name test1-res-key-vault --query value -o tsv)
+
+            declare -x ARM_CLIENT_ID="00000000-0000-0000-0000-000000000000"
+            declare -x ARM_CLIENT_SECRET="00000000-0000-0000-0000-000000000000"
+            declare -x ARM_TENANT_ID="00000000-0000-0000-0000-000000000000"
+            declare -x ARM_SUBSCRIPTION_ID="00000000-0000-0000-0000-000000000000"
+            declare -x TF_VAR_VAULT_URI=""
         name: "Uno"
             
       - task: AzureCLI@2
