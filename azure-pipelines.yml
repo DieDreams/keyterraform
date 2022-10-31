@@ -3,7 +3,7 @@ pool:
 trigger:
   - master
 variables:
-      group
+  - group: ServicePrincipal kredki
 steps:      
       # - task: AzureCLI@2
       #   displayName: "Get Creds"
