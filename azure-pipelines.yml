@@ -47,5 +47,5 @@ steps:
           addSpnToEnvironment: true
           scriptLocation: inlineScript
           inlineScript: |
-            az account set --subscription $(ARM_SUBSCRIPTION_ID)
-            az login --service-principal -u $(ARM_CLIENT_ID) -p $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)
+            az account set --subscription $(ARM-SUBSCRIPTION-ID)
+            az login --service-principal -u $(ARM-CLIENT-ID) -p $(ARM-CLIENT-SECRET) --tenant $(ARM-TENANT-ID)
