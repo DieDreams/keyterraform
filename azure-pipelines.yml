@@ -2,11 +2,6 @@ pool:
   vmImage: 'ubuntu-20.04'
 trigger:
   - master
-variables:
-      ARM_CLIENT_ID
-      ARM_CLIENT_SECRET
-      ARM_TENANT_ID
-      ARM_SUBSCRIPTION_ID
 steps:      
       - task: AzureCLI@2
         displayName: "Get Creds"
