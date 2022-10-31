@@ -3,7 +3,7 @@ pool:
 trigger:
   - master
 variables:
-  - group: ServicePrincipal kredki
+  - group: ServicePrincipal-kredki
 steps:      
       # - task: AzureCLI@2
       #   displayName: "Get Creds"
@@ -45,9 +45,7 @@ steps:
           azureSubscription: very_interesting_not_suspicious_connection
           scriptType: bash
           addSpnToEnvironment: true
-
           scriptLocation: inlineScript
           inlineScript: |
-            az logout
             az account set --subscription $(ARM_SUBSCRIPTION_ID)
             az login --service-principal -u $(ARM_CLIENT_ID) -p $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)
