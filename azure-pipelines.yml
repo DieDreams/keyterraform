@@ -49,5 +49,5 @@ steps:
           scriptLocation: inlineScript
           inlineScript: |
             az logout
-            az account set --subscription $(SUBSCRIPTION_ID)
-            az login --service-principal -u $(CLIENT_ID) -p $(CLIENT_SECRET) --tenant $(TENANT_ID)
+            az account set --subscription $(ARM_SUBSCRIPTION_ID)
+            az login --service-principal -u $(ARM_CLIENT_ID) -p $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)
