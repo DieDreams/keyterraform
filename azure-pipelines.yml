@@ -2,36 +2,38 @@ pool:
   vmImage: 'ubuntu-20.04'
 trigger:
   - master
+variables:
+      group
 steps:      
-      - task: AzureCLI@2
-        displayName: "Get Creds"
-        env:
-            SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-            CLIENT_ID: $(ARM_CLIENT_ID)
-            CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-            TENANT_ID: $(ARM_TENANT_ID)
-        inputs:
-          azureSubscription: very_interesting_not_suspicious_connection
-          scriptType: bash
-          addSpnToEnvironment: true
-          scriptLocation: inlineScript
-          inlineScript: |
-            # export ARM_SUBSCRIPTION_ID=$(az keyvault secret show --name ARM-SUBSCRIPTION-ID --vault-name test1-res-key-vault --query value -o tsv)
-            # export ARM_CLIENT_ID=$(az keyvault secret show --name ARM-CLIENT-ID --vault-name test1-res-key-vault --query value -o tsv)
-            # export ARM_CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
-            # export ARM_TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)
-            # export TF_VAR_VAULT_URI=$(az keyvault secret show --name TF-VAR-VAULT-URI --vault-name test1-res-key-vault --query value -o tsv)
+      # - task: AzureCLI@2
+      #   displayName: "Get Creds"
+      #   env:
+      #       SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      #       CLIENT_ID: $(ARM_CLIENT_ID)
+      #       CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      #       TENANT_ID: $(ARM_TENANT_ID)
+      #   inputs:
+      #     azureSubscription: very_interesting_not_suspicious_connection
+      #     scriptType: bash
+      #     addSpnToEnvironment: true
+      #     scriptLocation: inlineScript
+      #     inlineScript: |
+      #       # export ARM_SUBSCRIPTION_ID=$(az keyvault secret show --name ARM-SUBSCRIPTION-ID --vault-name test1-res-key-vault --query value -o tsv)
+      #       # export ARM_CLIENT_ID=$(az keyvault secret show --name ARM-CLIENT-ID --vault-name test1-res-key-vault --query value -o tsv)
+      #       # export ARM_CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
+      #       # export ARM_TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)
+      #       # export TF_VAR_VAULT_URI=$(az keyvault secret show --name TF-VAR-VAULT-URI --vault-name test1-res-key-vault --query value -o tsv)
 
-            # declare -x ARM_CLIENT_ID="00000000-0000-0000-0000-000000000000"
-            # declare -x ARM_CLIENT_SECRET="00000000-0000-0000-0000-000000000000"
-            # declare -x ARM_TENANT_ID="00000000-0000-0000-0000-000000000000"
-            # declare -x ARM_SUBSCRIPTION_ID="00000000-0000-0000-0000-000000000000"
-            # declare -x TF_VAR_VAULT_URI=""
+      #       # declare -x ARM_CLIENT_ID="00000000-0000-0000-0000-000000000000"
+      #       # declare -x ARM_CLIENT_SECRET="00000000-0000-0000-0000-000000000000"
+      #       # declare -x ARM_TENANT_ID="00000000-0000-0000-0000-000000000000"
+      #       # declare -x ARM_SUBSCRIPTION_ID="00000000-0000-0000-0000-000000000000"
+      #       # declare -x TF_VAR_VAULT_URI=""
 
-            $env:SUBSCRIPTION_ID=$(az keyvault secret show --name ARM-SUBSCRIPTION-ID --vault-name test1-res-key-vault --query value -o tsv)
-            $env:CLIENT_ID=$(az keyvault secret show --name ARM-CLIENT-ID --vault-name test1-res-key-vault --query value -o tsv)
-            $env:CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
-            $env:TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)            
+      #       $env:SUBSCRIPTION_ID=$(az keyvault secret show --name ARM-SUBSCRIPTION-ID --vault-name test1-res-key-vault --query value -o tsv)
+      #       $env:CLIENT_ID=$(az keyvault secret show --name ARM-CLIENT-ID --vault-name test1-res-key-vault --query value -o tsv)
+      #       $env:CLIENT_SECRET=$(az keyvault secret show --name ARM-CLIENT-SECRET --vault-name test1-res-key-vault --query value -o tsv)
+      #       $env:TENANT_ID=$(az keyvault secret show --name ARM-TENANT-ID --vault-name test1-res-key-vault --query value -o tsv)            
       - task: AzureCLI@2
         displayName: "Right Principal"
         env:
