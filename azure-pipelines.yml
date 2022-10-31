@@ -15,3 +15,17 @@ steps:
           inlineScript: |
             az account set --subscription $(ARM-SUBSCRIPTION-ID)
             az login --service-principal -u $(ARM-CLIENT-ID) -p $(ARM-CLIENT-SECRET) --tenant $(ARM-TENANT-ID)
+      - task: AzureCLI@2
+        displayName: "Terraform"
+        inputs:
+          azureSubscription:  $(ARM-SUBSCRIPTION-ID)
+          scriptType: bash
+          addSpnToEnvironment: true
+          scriptLocation: inlineScript
+          inlineScript: |
+            # export ARM_CLIENT_ID=$servicePrincipalId
+            # export ARM_CLIENT_SECRET=$servicePrincipalKey
+            # export ARM_TENANT_ID=$tenantId
+
+            terraform init
+            terraform plan
